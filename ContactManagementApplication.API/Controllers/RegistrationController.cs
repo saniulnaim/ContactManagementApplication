@@ -73,7 +73,7 @@ namespace ContactManagementApplication.API.Controllers
             return new JsonResult(list);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         [Route("AddRegistration")]
         public async Task AddRegistrationAsync(string Name,string Email, string Mobile, string Address, string Password)
         {

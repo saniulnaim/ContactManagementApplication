@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ContactManagementApplication.API.EntityModel;
 using ContactManagementApplication.API.Model.DBRepositoryModel.Abstract;
 using ContactManagementApplication.API.Model.DomainModel;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -30,7 +31,7 @@ namespace ContactManagementApplication.API.Controllers
                 _hostingEnvironment = hostingEnvironment;
             }
 
-        [HttpPost, Route("AddContact")]
+        [HttpPost, Authorize, Route("AddContact")]
         public IActionResult AddContact([FromBody]ContactDomainModel contactParam, IFormFile filesData)
         {
             if (contactParam == null)
@@ -59,14 +60,14 @@ namespace ContactManagementApplication.API.Controllers
             return new JsonResult("Contact has been saved succesfull");
         }
 
-        [HttpDelete, Route("DeleteContact")]
+        [HttpDelete, Authorize, Route("DeleteContact")]
         public void Delete(decimal id)
         {
             Contact obj = contactRepository.GetById(id);
             contactRepository.Delete(obj);
         }
 
-        [HttpPut, Route("UpdateContact")]
+        [HttpPut, Authorize, Route("UpdateContact")]
         public void Update([FromBody]ContactDomainModel contactParam)
         {
             Contact contactObj = new Contact();
@@ -142,7 +143,7 @@ namespace ContactManagementApplication.API.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet, Authorize]
         [Route("ImportAsExcel")]
         public IActionResult ImportAsExcel(IFormFile formFile)
         {

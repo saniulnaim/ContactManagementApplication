@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ContactManagementApplication.API.EntityModel;
 using ContactManagementApplication.API.Model.DBRepositoryModel.Abstract;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,7 @@ namespace ContactManagementApplication.API.Controllers
             categoryRepository = categoryRepositoryParam;
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         [Route("AddCategory")]
         public void AddCategory(string Title, string Description)
         {
